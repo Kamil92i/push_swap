@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort.c                                             :+:      :+:    :+:   */
+/*   tri.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kberraho <kberraho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 16:00:28 by kberraho          #+#    #+#             */
-/*   Updated: 2025/06/02 12:32:58 by kberraho         ###   ########.fr       */
+/*   Updated: 2025/06/04 18:04:04 by kberraho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sort_three(t_list **a)
+void	tri_trois(t_list **a)
 {
 	t_list	*biggest_node;
 
-	biggest_node = find_max(*a);
+	biggest_node = trouver_max(*a);
 	if (biggest_node == *a)
 		ra(a, 0);
 	else if ((*a)->next == biggest_node)
@@ -27,56 +27,56 @@ void	sort_three(t_list **a)
 
 static void	move_a_to_b(t_list **a, t_list **b)
 {
-	t_list	*cheapest_node;
+	t_list	*cheapest_noeud;
 
-	cheapest_node = get_cheapest(*a);
-	if (cheapest_node->mediane && cheapest_node->target_node->mediane)
-		rotate_both(a, b, cheapest_node);
-	else if (!(cheapest_node->mediane)
-		&& !(cheapest_node->target_node->mediane))
-		rev_rotate_both(a, b, cheapest_node);
-	prep_for_push(a, cheapest_node, 'a');
-	prep_for_push(b, cheapest_node->target_node, 'b');
+	cheapest_noeud = trouver_noeud_optimal(*a);
+	if (cheapest_noeud->mediane && cheapest_noeud->noeud->mediane)
+		rotate_both(a, b, cheapest_noeud);
+	else if (!(cheapest_noeud->mediane)
+		&& !(cheapest_noeud->noeud->mediane))
+		rev_rotate_both(a, b, cheapest_noeud);
+	preparer_pour_push(a, cheapest_noeud, 'a');
+	preparer_pour_push(b, cheapest_noeud->noeud, 'b');
 	pb(b, a, 0);
 }
 
 static void	move_b_to_a(t_list **a, t_list **b)
 {
-	prep_for_push(a, (*b)->target_node, 'a');
+	preparer_pour_push(a, (*b)->noeud, 'a');
 	pa(a, b, 0);
 }
 
 static void	min_on_top(t_list **a)
 {
-	while ((*a)->valeur != find_min(*a)->valeur)
+	while ((*a)->valeur != trouver_min(*a)->valeur)
 	{
-		if (find_min(*a)->mediane)
+		if (trouver_min(*a)->mediane)
 			ra(a, 0);
 		else
 			rra(a, 0);
 	}
 }
 
-void	sort_stacks(t_list **a, t_list **b)
+void	trier_stack(t_list **a, t_list **b)
 {
 	int	len_a;
 
 	len_a = stack_len(*a);
-	if (len_a-- > 3 && !stack_sorted(*a))
+	if (len_a-- > 3 && !stack_trie(*a))
 		pb(b, a, 0);
-	if (len_a-- > 3 && !stack_sorted(*a))
+	if (len_a-- > 3 && !stack_trie(*a))
 		pb(b, a, 0);
-	while (len_a-- > 3 && !stack_sorted(*a))
+	while (len_a-- > 3 && !stack_trie(*a))
 	{
-		init_nodes_a(*a, *b);
+		init_noeud_a(*a, *b);
 		move_a_to_b(a, b);
 	}
-	sort_three(a);
+	tri_trois(a);
 	while (*b)
 	{
-		init_nodes_b(*a, *b);
+		init_noeud_b(*a, *b);
 		move_b_to_a(a, b);
 	}
-	current_index(*a);
+	indexer_pile(*a);
 	min_on_top(a);
 }

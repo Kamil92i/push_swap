@@ -6,13 +6,13 @@
 /*   By: kberraho <kberraho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 16:01:42 by kberraho          #+#    #+#             */
-/*   Updated: 2025/06/02 12:31:10 by kberraho         ###   ########.fr       */
+/*   Updated: 2025/06/04 18:00:31 by kberraho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	current_index(t_list *stack)
+void	indexer_pile(t_list *stack)
 {
 	int	i;
 	int	median;
@@ -33,10 +33,10 @@ void	current_index(t_list *stack)
 	}
 }
 
-static void	set_target_a(t_list *a, t_list *b)
+static void	definir_cible_a(t_list *a, t_list *b)
 {
 	t_list	*current_b;
-	t_list	*target_node;
+	t_list	*noeud;
 	long	best_m_i;
 
 	while (a)
@@ -48,19 +48,19 @@ static void	set_target_a(t_list *a, t_list *b)
 			if (current_b->valeur < a->valeur && current_b->valeur > best_m_i)
 			{
 				best_m_i = current_b->valeur;
-				target_node = current_b;
+				noeud = current_b;
 			}
 			current_b = current_b->next;
 		}
 		if (best_m_i == LONG_MIN)
-			a->target_node = find_max(b);
+			a->noeud = trouver_max(b);
 		else
-			a->target_node = target_node;
+			a->noeud = noeud;
 		a = a->next;
 	}
 }
 
-static void	cost_analysis_a(t_list *a, t_list *b)
+static void	calcul_cout_a(t_list *a, t_list *b)
 {
 	int	len_a;
 	int	len_b;
@@ -72,39 +72,39 @@ static void	cost_analysis_a(t_list *a, t_list *b)
 		a->cout = a->index;
 		if (!(a->mediane))
 			a->cout = len_a - (a->index);
-		if (a->target_node->mediane)
-			a->cout += a->target_node->index;
+		if (a->noeud->mediane)
+			a->cout += a->noeud->index;
 		else
-			a->cout += len_b - (a->target_node->index);
+			a->cout += len_b - (a->noeud->index);
 		a = a->next;
 	}
 }
 
-void	set_cheapest(t_list *stack)
+void	marquer_moins_cher(t_list *stack)
 {
-	long	cheapest_value;
-	t_list	*cheapest_node;
+	long	cheapest_valeur;
+	t_list	*cheapest_noeud;
 
 	if (!stack)
 		return ;
-	cheapest_value = LONG_MAX;
+	cheapest_valeur = LONG_MAX;
 	while (stack)
 	{
-		if (stack->cout < cheapest_value)
+		if (stack->cout < cheapest_valeur)
 		{
-			cheapest_value = stack->cout;
-			cheapest_node = stack;
+			cheapest_valeur = stack->cout;
+			cheapest_noeud = stack;
 		}
 		stack = stack->next;
 	}
-	cheapest_node->cheapest = 1;
+	cheapest_noeud->cheapest = 1;
 }
 
-void	init_nodes_a(t_list *a, t_list *b)
+void	init_noeud_a(t_list *a,	 t_list *b)
 {
-	current_index(a);
-	current_index(b);
-	set_target_a(a, b);
-	cost_analysis_a(a, b);
-	set_cheapest(a);
+	indexer_pile(a);
+	indexer_pile(b);
+	definir_cible_a(a, b);
+	calcul_cout_a(a, b);
+	marquer_moins_cher(a);
 }

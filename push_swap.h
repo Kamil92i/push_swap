@@ -6,7 +6,7 @@
 /*   By: kberraho <kberraho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 16:03:22 by kberraho          #+#    #+#             */
-/*   Updated: 2025/06/04 17:13:08 by kberraho         ###   ########.fr       */
+/*   Updated: 2025/06/04 18:00:19 by kberraho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_list
 	int				cout;
 	int				mediane;
 	int				cheapest;
-	struct s_list	*target_node;
+	struct s_list	*noeud;
 	struct s_list	*next;
 	struct s_list	*prev;
 }					t_list;
@@ -47,22 +47,22 @@ int					free_errors(t_list **a);
 void				free_split(char **split);
 char				**split(char *s, char c);
 int					init_stack_a(t_list **a, char **argv);
-t_list				*get_cheapest(t_list *stack);
-void				prep_for_push(t_list **stack, t_list *top, char name);
-void				rotate_both(t_list **a, t_list **b, t_list *cheapest_node);
+t_list				*trouver_noeud_optimal(t_list *stack);
+void				preparer_pour_push(t_list **stack, t_list *top, char name);
+void				rotate_both(t_list **a, t_list **b, t_list *cheapest_noeud);
 void				rev_rotate_both(t_list **a, t_list **b,
-						t_list *cheapest_node);
+						t_list *cheapest_noeud);
 int					stack_len(t_list *stack);
-int					stack_sorted(t_list *stack);
-t_list				*find_last(t_list *stack);
-t_list				*find_min(t_list *stack);
-t_list				*find_max(t_list *stack);
-void				current_index(t_list *stack);
-void				init_nodes_a(t_list *a, t_list *b);
-void				init_nodes_b(t_list *a, t_list *b);
-void				set_cheapest(t_list *stack);
-void				sort_three(t_list **a);
-void				sort_stacks(t_list **a, t_list **b);
+int					stack_trie(t_list *stack);
+t_list				*trouver_dernier(t_list *stack);
+t_list				*trouver_min(t_list *stack);
+t_list				*trouver_max(t_list *stack);
+void				indexer_pile(t_list *stack);
+void				init_noeud_a(t_list *a, t_list *b);
+void				init_noeud_b(t_list *a, t_list *b);
+void				marquer_moins_cher(t_list *stack);
+void				tri_trois(t_list **a);
+void				trier_stack(t_list **a, t_list **b);
 void				ft_putstr(char *str);
 void				ft_putchar(char c);
 void				ft_putnbr(int n);

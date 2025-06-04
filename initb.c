@@ -6,16 +6,16 @@
 /*   By: kberraho <kberraho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 16:01:14 by kberraho          #+#    #+#             */
-/*   Updated: 2025/06/02 12:31:32 by kberraho         ###   ########.fr       */
+/*   Updated: 2025/06/04 17:56:37 by kberraho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	set_target_b(t_list *a, t_list *b)
+static void	definir_cible_b(t_list *a, t_list *b)
 {
 	t_list	*current_a;
-	t_list	*target_node;
+	t_list	*noeud;
 	long	best_m_i;
 
 	while (b)
@@ -27,21 +27,21 @@ static void	set_target_b(t_list *a, t_list *b)
 			if (current_a->valeur > b->valeur && current_a->valeur < best_m_i)
 			{
 				best_m_i = current_a->valeur;
-				target_node = current_a;
+				noeud = current_a;
 			}
 			current_a = current_a->next;
 		}
 		if (best_m_i == LONG_MAX)
-			b->target_node = find_min(a);
+			b->noeud = trouver_min(a);
 		else
-			b->target_node = target_node;
+			b->noeud = noeud;
 		b = b->next;
 	}
 }
 
-void	init_nodes_b(t_list *a, t_list *b)
+void	init_noeud_b(t_list *a, t_list *b)
 {
-	current_index(a);
-	current_index(b);
-	set_target_b(a, b);
+	indexer_pile(a);
+	indexer_pile(b);
+	definir_cible_b(a, b);
 }

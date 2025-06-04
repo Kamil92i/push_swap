@@ -6,7 +6,7 @@
 /*   By: kberraho <kberraho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 16:02:11 by kberraho          #+#    #+#             */
-/*   Updated: 2025/06/02 12:25:01 by kberraho         ###   ########.fr       */
+/*   Updated: 2025/06/04 17:50:59 by kberraho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 static void	rotate(t_list **stack)
 {
-	t_list	*last_node;
+	t_list	*dernier_noeud;
 
 	if (!*stack || !(*stack)->next)
 		return ;
-	last_node = find_last(*stack);
-	last_node->next = *stack;
+	dernier_noeud = trouver_dernier(*stack);
+	dernier_noeud->next = *stack;
 	*stack = (*stack)->next;
 	(*stack)->prev = NULL;
-	last_node->next->prev = last_node;
-	last_node->next->next = NULL;
+	dernier_noeud->next->prev = dernier_noeud;
+	dernier_noeud->next->next = NULL;
 }
 
 void	ra(t_list **a, int print)

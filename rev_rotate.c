@@ -6,7 +6,7 @@
 /*   By: kberraho <kberraho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 16:02:18 by kberraho          #+#    #+#             */
-/*   Updated: 2025/06/02 12:24:59 by kberraho         ###   ########.fr       */
+/*   Updated: 2025/06/04 17:51:08 by kberraho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	rev_rotate(t_list **stack)
 
 	if (!*stack || !(*stack)->next)
 		return ;
-	last = find_last(*stack);
+	last = trouver_dernier(*stack);
 	last->prev->next = NULL;
 	last->next = *stack;
 	last->prev = NULL;

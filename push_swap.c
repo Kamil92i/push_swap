@@ -6,7 +6,7 @@
 /*   By: kberraho <kberraho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 16:36:48 by kberraho          #+#    #+#             */
-/*   Updated: 2025/06/02 12:23:59 by kberraho         ###   ########.fr       */
+/*   Updated: 2025/06/04 18:00:14 by kberraho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ void	push_swap(t_list **a)
 	int		len;
 
 	b = NULL;
-	if (stack_sorted(*a))
+	if (stack_trie(*a))
 		return ;
 	len = stack_len(*a);
 	if (len == 2)
 		sa(a, 0);
 	else if (len == 3)
-		sort_three(a);
+		tri_trois(a);
 	else
-		sort_stacks(a, &b);
+		trier_stack(a, &b);
 }
 
 // void	print_stack(t_list *a)
